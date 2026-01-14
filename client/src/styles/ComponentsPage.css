@@ -1,0 +1,276 @@
+.components-page {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  background: linear-gradient(135deg, white 0%, #ffebee 100%);
+}
+
+.components-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 235, 238, 0.3));
+  border-radius: 8px;
+  border: 1px solid rgba(255, 82, 82, 0.1);
+}
+
+.components-hero h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #ff5252 0%, #ff9999 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 1rem 0;
+  font-weight: 700;
+}
+
+.components-hero p {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.category-filter {
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: center;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 2px solid rgba(255, 82, 82, 0.3);
+  background: white;
+  color: #666;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  border-color: #ff5252;
+  color: #ff5252;
+  background: rgba(255, 82, 82, 0.05);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #ff5252 0%, #ff7070 100%);
+  color: white;
+  border-color: #ff5252;
+  box-shadow: 0 4px 12px rgba(255, 82, 82, 0.2);
+}
+
+.components-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.component-count {
+  font-size: 0.9rem;
+  color: #999;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.loading-text {
+  text-align: center;
+  color: #666;
+  padding: 2rem;
+}
+
+.components-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.component-card {
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  border: 1px solid #f0f0f0;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.component-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff5252 0%, #ff9999 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.component-card:hover::before {
+  transform: scaleX(1);
+}
+
+.component-category {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--red-accent);
+  background-color: rgba(255, 82, 82, 0.08);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1.2rem;
+  width: fit-content;
+}
+
+.component-card h3 {
+  margin-bottom: 1rem;
+  margin-top: 0;
+  font-size: 1.25rem;
+  color: #222;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.component-card p {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+  flex-grow: 1;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.view-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--red-accent);
+  transition: all 0.3s ease;
+}
+
+.component-card:hover .view-link {
+  gap: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.no-components {
+  text-align: center;
+  color: #999;
+  padding: 3rem;
+  background: var(--white);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+}
+
+@media (max-width: 1024px) {
+  .components-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .components-page {
+    padding: 1rem;
+  }
+
+  .components-hero {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .components-hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .components-hero p {
+    font-size: 1rem;
+  }
+
+  .filter-buttons {
+    gap: 0.75rem;
+  }
+
+  .filter-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+
+  .components-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .component-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .component-card h3 {
+    font-size: 1.05rem;
+  }
+
+  .component-card p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .components-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .component-card {
+    padding: 1.25rem;
+  }
+
+  .component-card h3 {
+    font-size: 0.95rem;
+  }
+
+  .component-card p {
+    font-size: 0.85rem;
+  }
+
+  .filter-buttons {
+    gap: 0.5rem;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .view-link {
+    font-size: 0.8rem;
+  }
+
+  .components-hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .components-hero p {
+    font-size: 0.95rem;
+  }
+}

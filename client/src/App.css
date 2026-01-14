@@ -1,0 +1,73 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--white) 0%, var(--light-red) 100%);
+}
+
+.app-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+}
+
+.main-layout {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  min-height: 100%;
+}
+
+.sidebar {
+  width: 250px;
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 1.5rem 0;
+  position: sticky;
+  top: 0;
+  max-height: calc(100vh - 80px);
+}
+
+.sidebar-section {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.sidebar-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+  padding: 0 0.5rem;
+}
+
+.sidebar-item {
+  padding: 0.75rem 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--text);
+  text-decoration: none;
+  display: block;
+}
+
+.sidebar-item:hover,
+.sidebar-item.active {
+  background-color: var(--light-red);
+  color: var(--red-accent);
+  font-weight: 500;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 80px);
+}
+
