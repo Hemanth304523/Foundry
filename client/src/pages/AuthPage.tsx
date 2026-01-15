@@ -117,7 +117,7 @@ export const LoginPage = () => {
         >
           <div className="auth-card">
             <div className="auth-header">
-              <h1>Foundry</h1>
+              <h1>🌱Foundry</h1>
               <p>{isSignup ? 'Create Admin Account' : 'Admin Login'}</p>
             </div>
 
@@ -154,7 +154,7 @@ export const LoginPage = () => {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="your-username"
+                placeholder="Enter Admin UserName"
                 disabled={loading}
               />
             </div>
@@ -211,13 +211,6 @@ export const LoginPage = () => {
               ← Back to Home
             </button>
           </div>
-
-          {!isSignup && (
-            <div className="auth-info">
-              <p>Demo Credentials (if available):</p>
-              <code>Hemanth / Admin@123</code>
-            </div>
-          )}
         </div>
         </motion.div>
       </div>

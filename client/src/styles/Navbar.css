@@ -1,6 +1,6 @@
 
 .navbar {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 254, 254, 0.18);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(14px);
   padding: 0.5rem 0;
@@ -37,8 +37,9 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  padding: center;
   margin-bottom: 0;
-  color: rgb(14, 14, 14);
+  color: rgb(248, 41, 41);
 }
 
 
@@ -50,7 +51,7 @@
 
 .nav-link {
   background-color: rgba(255, 255, 255, 0.2);
-  color: linear-gradient(90deg, rgb(0, 0, 0) 0%, #f14d4d 100%);
+  color: linear-gradient(90deg, rgb(236, 226, 226) 0%, #f14d4d 100%);
   padding: 0.5rem 1rem;
   border-radius: 7px;
   font-size: 0.95rem;
@@ -71,9 +72,9 @@
 }
 
 .nav-login-btn {
-  background-color: white;
+  background-color: rgb(248, 248, 248);
   color: #ff5252;
-  padding: 0.6rem 1.2rem;
+  padding: 0.6rem 1.8rem;
   border-radius: 4px;
   font-weight: 500;
   transition: all 0.3s ease;

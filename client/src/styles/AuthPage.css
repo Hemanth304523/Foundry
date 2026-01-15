@@ -4,7 +4,7 @@
   align-items: center;
   min-height: 100vh;
   padding: 2rem;
-  background: linear-gradient(135deg, var(--white) 0%, var(--light-red) 100%);
+  background: linear-gradient(90deg, rgb(253, 253, 253) 0%, #fafafa 100%);
 }
 
 .auth-container {
@@ -27,7 +27,7 @@
 
 .auth-header h1 {
   font-size: 2rem;
-  background: linear-gradient(135deg, #ff5252 0%, #ff9999 100%);
+  background: linear-gradient(90deg, rgb(0, 0, 0) 0%, #f14d4d 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
