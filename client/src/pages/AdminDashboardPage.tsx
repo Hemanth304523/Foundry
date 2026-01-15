@@ -137,51 +137,51 @@ export const AdminDashboardPage = () => {
         {loading ? (
           <p>Loading components...</p>
         ) : filteredComponents.length > 0 ? (
-          <div className="components-table">
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              <div className="table-header">
-                <div className="col-title">Title</div>
-                <div className="col-category">Category</div>
-                <div className="col-use-case">Use Case</div>
-                <div className="col-actions">Actions</div>
-              </div>
-
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <div className="admin-components-grid">
               {filteredComponents.map((component) => (
-                <div key={component.id} className="table-row">
-                  <motion.div
-                    variants={itemVariants}
-                    whileHover={{ backgroundColor: '#f9f9f9' }}
-                  >
-                    <div className="col-title">{component.title}</div>
-                    <div className="col-category">
+                <motion.div
+                  key={component.id}
+                  variants={itemVariants}
+                  initial="hidden"
+                  animate="visible"
+                  whileHover={{ y: -12 }}
+                >
+                  <div className="admin-component-card">
+                    <div className="card-category">
                       <span className="category-badge">{component.category}</span>
                     </div>
-                    <div className="col-use-case">{component.use_case.substring(0, 50)}...</div>
-                    <div className="col-actions">
+                    <div className="card-content">
+                      <h3>{component.title}</h3>
+                      <p>{component.use_case}</p>
+                    </div>
+                    <div className="card-actions">
                       <button 
                         className="action-btn edit"
                         onClick={() => navigate(`/admin/components/${component.id}/edit`)}
                         title="Edit component"
                       >
-                      <Edit2 size={18} />
-                    </button>
-                    <button 
-                      className="action-btn delete"
-                      onClick={() => handleDelete(component.id)}
-                      title="Delete component"
-                    >
-                      <Trash2 size={18} />
-                    </button>
+                        <Edit2 size={18} />
+                        <span>Edit</span>
+                      </button>
+                      <button 
+                        className="action-btn delete"
+                        onClick={() => handleDelete(component.id)}
+                        title="Delete component"
+                      >
+                        <Trash2 size={18} />
+                        <span>Delete</span>
+                      </button>
+                    </div>
                   </div>
-                  </motion.div>
-                </div>
+                </motion.div>
               ))}
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         ) : (
           <div className="empty-state">
             <h3>No components found</h3>

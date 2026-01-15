@@ -22,6 +22,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-weight: 800;
 }
 
 .admin-title p {
@@ -40,18 +41,52 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-actions .primary {
+  background: linear-gradient(135deg, #ff5252 0%, #ff7070 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(255, 82, 82, 0.2);
+}
+
+.admin-actions .primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 82, 82, 0.3);
+}
+
+.admin-actions .secondary {
+  background: white;
+  color: #666;
+  border: 2px solid var(--border);
+}
+
+.admin-actions .secondary:hover {
+  border-color: var(--red-accent);
+  color: var(--red-accent);
+  background: rgba(255, 82, 82, 0.05);
+  transform: translateY(-2px);
 }
 
 .dashboard-content {
-  max-width: 1200px;
+  max-width: 1400px;
 }
 
 .filter-section {
-  margin-bottom: 2.5rem;
+  margin-bottom: 3rem;
 }
 
 .filter-section h3 {
-  margin-bottom: 1rem;
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
 }
 
 .filter-buttons {
@@ -61,12 +96,13 @@
 }
 
 .filter-btn {
-  background: var(--light-gray);
-  color: var(--text);
-  border: 1px solid var(--border);
+  background: white;
+  color: #666;
+  border: 2px solid rgba(255, 82, 82, 0.2);
   padding: 0.6rem 1.2rem;
-  border-radius: 20px;
+  border-radius: 50px;
   font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -74,147 +110,196 @@
 .filter-btn:hover {
   border-color: var(--red-accent);
   color: var(--red-accent);
+  background: rgba(255, 82, 82, 0.05);
+  transform: translateY(-2px);
 }
 
 .filter-btn.active {
-  background-color: var(--red-accent);
+  background: linear-gradient(135deg, #ff5252 0%, #ff7070 100%);
   color: white;
-  border-color: var(--red-accent);
+  border-color: #ff5252;
+  box-shadow: 0 4px 12px rgba(255, 82, 82, 0.2);
 }
 
-.components-table {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.table-header {
+.admin-components-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 2fr 1fr;
-  gap: 1rem;
-  padding: 1rem 1.5rem;
-  background: var(--light-gray);
-  border-bottom: 2px solid var(--border);
-  font-weight: 600;
-  color: #666;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
 
-.table-row {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 2fr 1fr;
-  gap: 1rem;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--border);
-  align-items: center;
+.admin-components-grid > div {
   transition: all 0.3s ease;
-  cursor: default;
 }
 
-.table-row:last-child {
-  border-bottom: none;
+.admin-components-grid > div:hover .admin-component-card {
+  border-color: var(--red-accent);
+  box-shadow: 0 20px 40px rgba(255, 82, 82, 0.15);
 }
 
-.table-row:hover {
-  background-color: #f9f9f9;
-}
-
-.col-title {
-  font-weight: 600;
-  color: var(--text);
-}
-
-.col-category {
+.admin-component-card {
+  background: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 2rem;
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-component-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff5252 0%, #ff9999 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.admin-components-grid > div:hover .admin-component-card::before {
+  transform: scaleX(1);
+}
+
+.card-category {
+  margin-bottom: 1.2rem;
 }
 
 .category-badge {
   display: inline-block;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--red-accent);
-  background-color: var(--light-red);
-  padding: 0.3rem 0.8rem;
-  border-radius: 4px;
+  background-color: rgba(255, 82, 82, 0.08);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
   text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
-.col-use-case {
+.card-content {
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+}
+
+.card-content h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.25rem;
+  color: #222;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.card-content p {
+  margin: 0;
   color: #666;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
-.col-actions {
+.card-actions {
   display: flex;
   gap: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f0f0f0;
   justify-content: flex-end;
 }
 
 .action-btn {
   background: none;
   border: none;
-  padding: 0.5rem;
+  padding: 0.65rem 1.2rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  gap: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
   transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.action-btn span {
+  display: none;
 }
 
 .action-btn.edit {
   color: #2196f3;
   background-color: #e3f2fd;
+  border: 1px solid rgba(33, 150, 243, 0.2);
 }
 
 .action-btn.edit:hover {
   background-color: #bbdefb;
+  border-color: #2196f3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.2);
 }
 
 .action-btn.delete {
   color: #d32f2f;
   background-color: #ffebee;
+  border: 1px solid rgba(211, 47, 47, 0.2);
 }
 
 .action-btn.delete:hover {
   background-color: #ffcdd2;
+  border-color: #d32f2f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2);
 }
 
 .empty-state {
   text-align: center;
   padding: 4rem 2rem;
-  background: var(--light-gray);
-  border-radius: 8px;
+  background: white;
+  border-radius: 12px;
   border: 2px dashed var(--border);
 }
 
 .empty-state h3 {
   font-size: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem 0;
+  color: #333;
 }
 
 .empty-state p {
   color: #999;
-  margin-bottom: 1.5rem;
+  margin: 0 0 1.5rem 0;
+}
+
+.empty-state button {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #ff5252 0%, #ff7070 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 82, 82, 0.2);
+}
+
+.empty-state button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 82, 82, 0.3);
 }
 
 @media (max-width: 1024px) {
-  .table-header,
-  .table-row {
-    grid-template-columns: 1fr 1fr 1.5fr 1fr;
-  }
-
-  .col-use-case {
-    display: none;
-  }
-
-  .table-header > div:nth-child(3),
-  .table-row > div:nth-child(3) {
-    display: none;
+  .admin-components-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -225,6 +310,7 @@
 
   .admin-header {
     flex-direction: column;
+    margin-bottom: 2rem;
   }
 
   .admin-title h1 {
@@ -241,25 +327,71 @@
     justify-content: center;
   }
 
-  .table-header,
-  .table-row {
-    grid-template-columns: 1fr 1fr;
+  .admin-components-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  .col-category,
-  .col-use-case {
-    display: none;
+  .admin-component-card {
+    padding: 1.5rem;
   }
 
-  .table-header > div:nth-child(2),
-  .table-header > div:nth-child(3),
-  .table-row > div:nth-child(2),
-  .table-row > div:nth-child(3) {
-    display: none;
+  .card-content h3 {
+    font-size: 1.1rem;
   }
 
-  .col-actions {
-    justify-content: flex-end;
+  .card-content p {
+    font-size: 0.9rem;
+  }
+
+  .action-btn {
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .action-btn span {
+    display: inline;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-components-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .admin-component-card {
+    padding: 1.25rem;
+  }
+
+  .card-content h3 {
+    font-size: 1rem;
+  }
+
+  .card-content p {
+    font-size: 0.85rem;
+  }
+
+  .card-actions {
     gap: 0.5rem;
+    padding-top: 1rem;
+  }
+
+  .action-btn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .action-btn span {
+    display: none;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .admin-title h1 {
+    font-size: 1.5rem;
   }
 }

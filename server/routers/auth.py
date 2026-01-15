@@ -162,7 +162,7 @@ async def login_admin(
     }
 
 
-@router.get("/me", response_model=schemas.AdminResponse)
+@router.get("/admin", response_model=schemas.AdminResponse)
 async def get_current_admin_info(current_admin: Annotated[Admin, Depends(get_current_admin)]):
     """Get current admin user info"""
     return current_admin

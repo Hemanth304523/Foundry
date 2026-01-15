@@ -18,7 +18,7 @@ export const ComponentsPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  const categories = ['all', 'frontend', 'backend', 'database', 'devops'];
+  const categories = ['all', 'frontend', 'backend', 'database', 'DevOps & Cloud'];
 
   useEffect(() => {
     const fetchComponents = async () => {
@@ -37,7 +37,7 @@ export const ComponentsPage = () => {
 
   const filteredComponents = selectedCategory === 'all' 
     ? components 
-    : components.filter(c => c.category.toLowerCase() === selectedCategory);
+    : components.filter(c => c.category.toLowerCase() === selectedCategory.toLowerCase());
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -92,7 +92,7 @@ export const ComponentsPage = () => {
                   className={`filter-btn ${selectedCategory === cat ? 'active' : ''}`}
                   onClick={() => setSelectedCategory(cat)}
                 >
-                  {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                  {cat === 'all' ? 'All' : cat}
                 </button>
               ))}
             </div>

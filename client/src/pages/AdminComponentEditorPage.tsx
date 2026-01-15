@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { adminAPI } from '../services/api';
-import { Plus, Trash2, Save } from 'lucide-react';
+import { Plus, Trash2, Save, Edit2, X } from 'lucide-react';
 import '../styles/AdminComponentEditorPage.css';
 
 interface CodeSnippet {
@@ -22,6 +22,12 @@ export const AdminComponentEditorPage = () => {
   const [category, setCategory] = useState('frontend');
   const [snippets, setSnippets] = useState<CodeSnippet[]>([]);
   const [newSnippet, setNewSnippet] = useState({
+    filename: '',
+    language: '',
+    code: '',
+  });
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editingSnippet, setEditingSnippet] = useState({
     filename: '',
     language: '',
     code: '',
@@ -70,6 +76,38 @@ export const AdminComponentEditorPage = () => {
     setSnippets([...snippets, { ...newSnippet, id: Date.now() }]);
     setNewSnippet({ filename: '', language: '', code: '' });
     setError('');
+  };
+
+  const handleEditSnippet = (snippet: CodeSnippet) => {
+    setEditingId(snippet.id);
+    setEditingSnippet({
+      filename: snippet.filename,
+      language: snippet.language,
+      code: snippet.code,
+    });
+  };
+
+  const handleSaveEdit = (id: number) => {
+    if (!editingSnippet.filename || !editingSnippet.language || !editingSnippet.code) {
+      setError('Please fill in all snippet fields');
+      return;
+    }
+
+    setSnippets(
+      snippets.map(s =>
+        s.id === id
+          ? { ...s, ...editingSnippet }
+          : s
+      )
+    );
+    setEditingId(null);
+    setEditingSnippet({ filename: '', language: '', code: '' });
+    setError('');
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setEditingSnippet({ filename: '', language: '', code: '' });
   };
 
   const handleRemoveSnippet = (id: number) => {
@@ -177,30 +215,32 @@ export const AdminComponentEditorPage = () => {
           <section className="editor-section">
             <h2>Basic Information</h2>
 
-            <div className="form-group">
-              <label htmlFor="title">Component Title *</label>
-              <input
-                id="title"
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g., React Form Handler"
-              />
-            </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="title">Component Title *</label>
+                <input
+                  id="title"
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="e.g., React Form Handler"
+                />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="category">Category *</label>
-              <select
-                id="category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                {categories.map(cat => (
-                  <option key={cat.value} value={cat.value}>
-                    {cat.label}
-                  </option>
-                ))}
-              </select>
+              <div className="form-group">
+                <label htmlFor="category">Category *</label>
+                <select
+                  id="category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  {categories.map(cat => (
+                    <option key={cat.value} value={cat.value}>
+                      {cat.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             <div className="form-group">
@@ -222,23 +262,106 @@ export const AdminComponentEditorPage = () => {
             {snippets.length > 0 && (
               <div className="snippets-preview">
                 {snippets.map((snippet) => (
-                  <div key={snippet.id} className="snippet-preview-item">
-                    <div className="preview-header">
-                      <div>
-                        <h4>{snippet.filename}</h4>
-                        <span className="preview-language">{snippet.language}</span>
+                  <motion.div
+                    key={snippet.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                  >
+                    {editingId === snippet.id ? (
+                      <div className="snippet-edit-form">
+                        <h4>Edit Snippet</h4>
+                        <div className="snippet-form-row">
+                          <div className="form-group">
+                            <label>Filename</label>
+                            <input
+                              type="text"
+                              value={editingSnippet.filename}
+                              onChange={(e) =>
+                                setEditingSnippet({ ...editingSnippet, filename: e.target.value })
+                              }
+                              placeholder="e.g., useForm.ts"
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label>Language</label>
+                            <select
+                              value={editingSnippet.language}
+                              onChange={(e) =>
+                                setEditingSnippet({ ...editingSnippet, language: e.target.value })
+                              }
+                            >
+                              <option value="">Select language...</option>
+                              <option value="javascript">JavaScript</option>
+                              <option value="typescript">TypeScript</option>
+                              <option value="python">Python</option>
+                              <option value="sql">SQL</option>
+                              <option value="bash">Bash</option>
+                              <option value="yaml">YAML</option>
+                              <option value="json">JSON</option>
+                              <option value="html">HTML</option>
+                              <option value="css">CSS</option>
+                              <option value="go">Go</option>
+                              <option value="rust">Rust</option>
+                              <option value="java">Java</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="form-group">
+                          <label>Code</label>
+                          <textarea
+                            value={editingSnippet.code}
+                            onChange={(e) =>
+                              setEditingSnippet({ ...editingSnippet, code: e.target.value })
+                            }
+                            rows={8}
+                          />
+                        </div>
+                        <div className="snippet-edit-actions">
+                          <button
+                            className="save-btn"
+                            onClick={() => handleSaveEdit(snippet.id)}
+                          >
+                            <Save size={18} /> Save Changes
+                          </button>
+                          <button
+                            className="cancel-btn"
+                            onClick={handleCancelEdit}
+                          >
+                            <X size={18} /> Cancel
+                          </button>
+                        </div>
                       </div>
-                      <button
-                        className="delete-btn"
-                        onClick={() => handleRemoveSnippet(snippet.id)}
-                      >
-                        <Trash2 size={18} />
-                      </button>
-                    </div>
-                    <pre className="preview-code">
-                      <code>{snippet.code.substring(0, 200)}...</code>
-                    </pre>
-                  </div>
+                    ) : (
+                      <div className="snippet-preview-item">
+                        <div className="preview-header">
+                          <div className="snippet-info">
+                            <h4>{snippet.filename}</h4>
+                            <span className="preview-language">{snippet.language}</span>
+                          </div>
+                          <div className="snippet-actions">
+                            <button
+                              className="edit-btn"
+                              onClick={() => handleEditSnippet(snippet)}
+                              title="Edit snippet"
+                            >
+                              <Edit2 size={18} />
+                            </button>
+                            <button
+                              className="delete-btn"
+                              onClick={() => handleRemoveSnippet(snippet.id)}
+                              title="Delete snippet"
+                            >
+                              <Trash2 size={18} />
+                            </button>
+                          </div>
+                        </div>
+                        <pre className="preview-code">
+                          <code>{snippet.code.substring(0, 200)}...</code>
+                        </pre>
+                      </div>
+                    )}
+                  </motion.div>
                 ))}
               </div>
             )}
@@ -246,38 +369,40 @@ export const AdminComponentEditorPage = () => {
             <div className="add-snippet-form">
               <h3>Add New Snippet</h3>
 
-              <div className="form-group">
-                <label htmlFor="filename">Filename *</label>
-                <input
-                  id="filename"
-                  type="text"
-                  value={newSnippet.filename}
-                  onChange={(e) => setNewSnippet({ ...newSnippet, filename: e.target.value })}
-                  placeholder="e.g., useForm.ts"
-                />
-              </div>
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="filename">Filename *</label>
+                  <input
+                    id="filename"
+                    type="text"
+                    value={newSnippet.filename}
+                    onChange={(e) => setNewSnippet({ ...newSnippet, filename: e.target.value })}
+                    placeholder="e.g., useForm.ts"
+                  />
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="language">Language *</label>
-                <select
-                  id="language"
-                  value={newSnippet.language}
-                  onChange={(e) => setNewSnippet({ ...newSnippet, language: e.target.value })}
-                >
-                  <option value="">Select language...</option>
-                  <option value="javascript">JavaScript</option>
-                  <option value="typescript">TypeScript</option>
-                  <option value="python">Python</option>
-                  <option value="sql">SQL</option>
-                  <option value="bash">Bash</option>
-                  <option value="yaml">YAML</option>
-                  <option value="json">JSON</option>
-                  <option value="html">HTML</option>
-                  <option value="css">CSS</option>
-                  <option value="go">Go</option>
-                  <option value="rust">Rust</option>
-                  <option value="java">Java</option>
-                </select>
+                <div className="form-group">
+                  <label htmlFor="language">Language *</label>
+                  <select
+                    id="language"
+                    value={newSnippet.language}
+                    onChange={(e) => setNewSnippet({ ...newSnippet, language: e.target.value })}
+                  >
+                    <option value="">Select language...</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="typescript">TypeScript</option>
+                    <option value="python">Python</option>
+                    <option value="sql">SQL</option>
+                    <option value="bash">Bash</option>
+                    <option value="yaml">YAML</option>
+                    <option value="json">JSON</option>
+                    <option value="html">HTML</option>
+                    <option value="css">CSS</option>
+                    <option value="go">Go</option>
+                    <option value="rust">Rust</option>
+                    <option value="java">Java</option>
+                  </select>
+                </div>
               </div>
 
               <div className="form-group">
