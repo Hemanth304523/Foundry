@@ -12,7 +12,7 @@ An open-source, enterprise-grade development and deployment starter platform ins
 ## ER - Diagram
 
 <p align="center">
-  <img src="ER_Diagram" alt="Data Flow Architecture" width="850">
+  <img src="ER_Diagram.png" alt="Data Flow Architecture" width="850">
 </p>
     
 
