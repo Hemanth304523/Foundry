@@ -2,6 +2,20 @@
 
 An open-source, enterprise-grade development and deployment starter platform inspired by shadcn/ui but extended beyond UI components.
 
+
+## Data Flow Architecture
+
+<p align="center">
+  <img src="Dataflow.png" alt="Data Flow Architecture" width="850">
+</p>
+
+## ER - Diagram
+
+<p align="center">
+  <img src="ER_Diagram" alt="Data Flow Architecture" width="850">
+</p>
+    
+
 ## Overview
 
 Foundry is a central registry of reusable, production-ready code components across:
