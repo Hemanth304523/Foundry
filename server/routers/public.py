@@ -2,7 +2,7 @@ from typing import Annotated, List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
-from database import SessionLocal
+from database import SessionLocal, get_db
 from model import Component, Category, CodeSnippet
 import schemas
 
@@ -12,12 +12,7 @@ router = APIRouter(
 )
 
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+
 
 
 db_dependency = Annotated[Session, Depends(get_db)]
@@ -65,7 +60,7 @@ async def get_components_by_category(
     db: db_dependency
 ):
     """Get components by category name"""
-    from model import CategoryType
+    from server.model import CategoryType
     
     # Map category name to enum
     category_mapping = {

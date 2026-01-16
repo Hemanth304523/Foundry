@@ -2,7 +2,7 @@ from typing import Annotated, List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
-from database import SessionLocal
+from database import SessionLocal, get_db
 from model import Admin, Component, Category, CodeSnippet, CategoryType
 import schemas
 from routers.auth import get_current_admin
@@ -11,15 +11,6 @@ router = APIRouter(
     prefix="/api/admin",
     tags=["admin"]
 )
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
 
 db_dependency = Annotated[Session, Depends(get_db)]
 admin_dependency = Annotated[Admin, Depends(get_current_admin)]
