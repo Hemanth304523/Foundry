@@ -5,6 +5,7 @@ from fastapi.responses import JSONResponse
 from routers import auth, admin, public
 from database import engine, SessionLocal
 import model
+import os
 
 app = FastAPI(
     title="Foundry Backend",
@@ -21,7 +22,9 @@ app.add_middleware(
         "http://localhost:3000",
         "http://127.0.0.1:5173",
         "http://127.0.0.1:5174",
-        "http://127.0.0.1:3000"
+        "http://127.0.0.1:3000",
+        "https://foundry-frontend.onrender.com",
+        "https://foundry-server.onrender.com",
     ],
     allow_credentials=True,
     allow_methods=["*"],
